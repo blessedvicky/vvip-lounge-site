@@ -445,10 +445,8 @@ function renderHouses(){
 
 async function openModal(id){
   const house = DATA.find(h => h.id===id);
-  if(!adminDataLoaded){
-    const ok = await loadFullHouses();
-    if(!ok) return;
-  }
+  const ok = await loadFullHouses();
+  if(!ok) return;
 
   const isOldStyle = house.type === 'A';
   document.getElementById('modalBanner').className = 'modal-banner ' + (isOldStyle ? 'photo-old-banner' : 'photo-new-banner');
@@ -668,7 +666,8 @@ document.querySelectorAll('.topnav .navtab').forEach(tab => {
     tab.classList.add('active');
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     document.getElementById('view-' + tab.dataset.view).classList.add('active');
-    if(tab.dataset.view === 'complaints' && !complaintsLoaded) loadComplaints();
+    if(tab.dataset.view === 'houses') loadHouses();
+    if(tab.dataset.view === 'complaints') loadComplaints();
     if(tab.dataset.view === 'settings') loadSettingsForm();
   });
 });
