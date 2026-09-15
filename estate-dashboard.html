@@ -367,7 +367,7 @@ async function loadFullHouses(){
     const houses = await res.json();
     houses.forEach(h => {
       const local = DATA.find(d => d.type===h.block && d.num===h.house_num);
-      if(local) local.tenant = (h.tenants && h.tenants.length) ? h.tenants[0] : null;
+      if(local) local.tenant = Array.isArray(h.tenants) ? (h.tenants.length ? h.tenants[0] : null) : (h.tenants || null);
     });
     adminDataLoaded = true;
     return true;
